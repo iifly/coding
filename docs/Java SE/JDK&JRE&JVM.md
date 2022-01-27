@@ -57,4 +57,4 @@ JDK 是 JRE 的超集，它包含了 JRE,并且多了一些其他工具，如编
 
 
 ##  阅读资料
-[初学者教程-Java](https://beginnersbook.com/2013/05/jvm/)
+- [初学者教程-Java](https://beginnersbook.com/2013/05/jvm/)

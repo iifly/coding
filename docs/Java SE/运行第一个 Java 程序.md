@@ -89,4 +89,4 @@ D:\javaDemo>
 代码中我用`//`写了一些注释，这种注释在编译时就被丢弃，并不会影响我们程序的运行。Java 中有多种注释方式，后面会再讲。
 
 ## 阅读资料
-[初学者教程链接-Java](https://beginnersbook.com/2013/05/first-java-program/)
+- [初学者教程链接-Java](https://beginnersbook.com/2013/05/first-java-program/)
