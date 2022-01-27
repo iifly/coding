@@ -1,3 +1,5 @@
+# 运行第一个 Java 程序
+
 本篇我们讲一下如何编写、编译、运行一个程序，然后介绍一些 Java 语法，代码规范。
 ## 一个简单的 Java 程序
 ```java
@@ -26,7 +28,7 @@ public class HelloWorld {
 好了，整个程序编写、编译、执行完成，编写好代码后，编译执行流程如下：
 > Tip：我的文件在 `D:\javaDemo\`目录，系统是 Windows，环境变量已配置
 
-```java
+```bat
 D:\javaDemo>javac HelloWorld.java
 
 D:\javaDemo>java HelloWorld
