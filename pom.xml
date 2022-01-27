@@ -24,6 +24,7 @@
     </build>
     <modules>
         <module>learn-javase</module>
+        <module>learn-javaoop</module>
     </modules>
 
 </project>
