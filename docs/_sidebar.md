@@ -5,6 +5,7 @@
     * [运行第一个 Java 程序](/Java%20SE/运行第一个%20Java%20程序)
     * [变量](/Java%20SE/变量)
     * [数据类型](/Java%20SE/数据类型)
+    * [操作符](/Java%20SE/操作符)
     * [流程控制](/Java%20SE/流程控制/)
         * [if-else 分支](/Java%20SE/流程控制/if-else%20分支)
         * [switch-case 分支](/Java%20SE/流程控制/switch-case%20分支)
