@@ -1,11 +1,10 @@
-* [coding](/)
-  * [Java SE](/Java%20SE/)
+* [Java SE](/Java%20SE/)
     * [Java 简介](/Java%20SE/Java%20简介)
     * [JDK&JRE&JVM](/Java%20SE/JDK&JRE&JVM)
     * [运行第一个 Java 程序](/Java%20SE/运行第一个%20Java%20程序)
     * [变量](/Java%20SE/变量)
-    * [数据类型](/Java%20SE/数据类型)
     * [操作符](/Java%20SE/操作符)
+    * [数据类型](/Java%20SE/数据类型)
     * [流程控制](/Java%20SE/流程控制/)
         * [if-else 分支](/Java%20SE/流程控制/if-else%20分支)
         * [switch-case 分支](/Java%20SE/流程控制/switch-case%20分支)
@@ -15,10 +14,13 @@
         * [continue 语句](/Java%20SE/流程控制/continue%20语句)
         * [break 语句](/Java%20SE/流程控制/break%20语句)
         * [return 语句](/Java%20SE/流程控制/return%20语句)
-  * [Java OOP](/Java%20OOP/)
-  * [随笔](/随笔/)
+        
+* [Java OOP](/Java%20OOP/)
+
+* [随笔](/随笔/)
     * [Bug 收集](/随笔/Bug%20收集)
-  * [环境搭建&部署](/环境搭建&部署/)
+    
+* [环境搭建&部署](/环境搭建&部署/)
     * [ELK 搭建](/环境搭建&部署/ELK%20搭建)
     * [RabbitMQ 集群搭建](/环境搭建&部署/RabbitMQ%20集群搭建)
 
