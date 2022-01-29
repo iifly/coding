@@ -89,4 +89,4 @@ Java ME 为在移动设备和嵌入式设备（比如手机、PDA、电视机顶
 ## 总结
 Java 介绍就到这里，都是照搬的，有个印象就行。
 ## 阅读资料
-- [Java 初学者教程](https://beginnersbook.com/2013/05/java-introduction/)
+- [初学者教程-Java简介](https://beginnersbook.com/2013/05/java-introduction/)
