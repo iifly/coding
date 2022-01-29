@@ -181,4 +181,4 @@ public class IfElseIfStatement {
 ```
 
 ## 阅读资料
-* [Java 初学者教程](https://beginnersbook.com/2017/08/if-else-statement-in-java/)
+* [初学者教程 if-else](https://beginnersbook.com/2017/08/if-else-statement-in-java/)
