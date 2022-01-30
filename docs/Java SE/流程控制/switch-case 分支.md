@@ -106,6 +106,11 @@ public static void withBreak(int num){
 
 
 ## 总结
+1. `switch` 语句中的变量类型可以是： `byte`、`short`、`int` 或者 `char`;Java 5 开始，支持新特性 `enum` ,从 Java 7 开始;`switch` 支持字符串 `String` 类型
+2. `case` 语句中的值的数据类型必须与变量的数据类型相同，而且只能是**常量**或者**字面常量**。
+2. `case` 后面常量值的顺序可以任意，一般按顺序编写
+3. `default` 顺序也可以编写在 `switch` 中 的任意位置，当所有 `case` 都不满足时则执行 `default` ，建议 `default` 编写在所有 `case` 的后面
+4. `break` 是可有可无的，当第一个匹配的 `case` 没有编写 `break` 会一直向下穿透执行，直到遇到 `break`
 
 ## 阅读资料
 * [初学者教程 switch-case](https://beginnersbook.com/2017/08/java-switch-case/)
