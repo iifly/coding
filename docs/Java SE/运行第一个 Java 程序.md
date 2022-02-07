@@ -1,6 +1,7 @@
 # 运行第一个 Java 程序
 
 本篇我们讲一下如何编写、编译、运行一个程序，然后介绍一些 Java 语法，代码规范。
+
 ## 一个简单的 Java 程序
 ```java
 public class HelloWorld {
@@ -9,7 +10,9 @@ public class HelloWorld {
     }// main 方法的结束
 }// HelloWorld 类定义的结束
 ```
+
 输出结果：`Hello World`
+
 ## 编译运行
 > **前提**：要编译运行上面的程序，我们需要先在系统上安装 Java 环境，也是就是 JDK，可以在[Oracle 官网下载](https://www.oracle.com/java/technologies/downloads/)JDK，并配置环境变量—[Java 环境搭建-菜鸟教程](https://www.runoob.com/java/java-environment-setup.html)。
 
@@ -36,6 +39,7 @@ Hello World
 
 D:\javaDemo>
 ```
+
 ## 回顾我们的程序
 现在我们已经知道怎么运行一个简单的 Java 程序了，让我们来回顾一下上面写的 Java 程序。
 ​
