@@ -3,6 +3,8 @@
     * [JDK&JRE&JVM](/Java%20SE/JDK&JRE&JVM)
     * [运行第一个 Java 程序](/Java%20SE/运行第一个%20Java%20程序)
     * [变量](/Java%20SE/变量)
+    * [字符串](/Java%20SE/字符串)
+    * [数组](/Java%20SE/数组)
     * [操作符](/Java%20SE/操作符)
     * [数据类型](/Java%20SE/数据类型)
     * [流程控制](/Java%20SE/流程控制/)
