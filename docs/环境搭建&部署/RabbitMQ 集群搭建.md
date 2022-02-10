@@ -6,7 +6,7 @@
 
    官网下载地址：https://www.erlang.org/downloads，注意Erlang 与 RabbitMQ 之间的版本对应关系，本教程选择的是 Erlang 24 与 RabbitMq 3.9.7。
 
-   但是 Erlang  官网实在下载太慢了，可以选择RabbitMQ 提供的解决方案 ，见如下网址：https://www.erlang-solutions.com/downloads/
+   但是 Erlang 官网实在下载太慢了，可以选择 RabbitMQ 提供的解决方案 ，见如下网址：https://www.erlang-solutions.com/downloads/
 
    ```bash
    cd /opt
@@ -16,7 +16,7 @@
 
    ```bash
    wget https://packages.erlang-solutions.com/erlang-solutions-2.0-1.noarch.rpm
-   
+
    rpm -Uvh erlang-solutions-2.0-1.noarch.rpm
    ```
 
@@ -32,38 +32,33 @@
    erl
    ```
 
-   
-
-2. 安装 RabbitMQ， 这里选择 GitHub 下载, 地址： https://github.com/rabbitmq/rabbitmq-server/releases， 一般选择 rabbitmq-server-generic-unix 版本
+2) 安装 RabbitMQ， 这里选择 GitHub 下载, 地址： https://github.com/rabbitmq/rabbitmq-server/releases， 一般选择 rabbitmq-server-generic-unix 版本
 
    ```bash
    # 下载
    wget https://github.com/rabbitmq/rabbitmq-server/releases/download/v3.9.7/rabbitmq-server-generic-unix-3.9.7.tar.xz
-   
+
    # 先用 xz 命令解压为 .tar 文件
    xz -d rabbitmq-server-generic-unix-3.9.7.tar.xz
-   
+
    # 再用 tar 命令解压
    tar -xvf rabbitmq-server-generic-unix-3.9.7.tar
-   
+
    # /etc/profile 文件添加环境变量
    vim /etc/profile
-   
+
    # 末尾添加以下内容
    export PATH=$PATH:/opt/rabbitmq_server-3.9.7/sbin
-   
+
    # 使配置生效
    source /etc/profile
-   
+
    # 启动 RabbitMQ
    rabbitmq-server -detached
-   
+
    # 查看 RabbitMQ 状态
    rabbitmqctl status
    ```
-
-
-
 
 ## 集群搭建
 
@@ -80,7 +75,7 @@ vim /etc/hosts
 192.168.0.13 rabbit-node3
 
 # 读取其中一个节点的cookie, 并复制到其他节点（节点之间通过 cookie 确定相互是否可通信）。
-# cookie存放在/var/lib/rabbitmq/.erlang.cookie或者$HOME/.erlang.cookie中，保证 3 台机器上的 cookie 相同。
+# cookie存放在/var/lib/rabbitmq/.erlang.cookie或者 $HOME/.erlang.cookie中，保证 3 台机器上的 cookie 相同。
 
 # 建立集群，先把服务都启动好
 rabbitmq-server -detached

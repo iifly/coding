@@ -1,6 +1,6 @@
 # Bug 收集
 
-## RabbitMQ 
+## RabbitMQ
 
 ### Bug 信息
 
@@ -27,6 +27,3 @@ Shutdown Signal: channel error; protocol method: #method<channel.close>(reply-co
    ```
 
 ---
-
-
-

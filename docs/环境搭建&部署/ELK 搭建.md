@@ -1,6 +1,6 @@
 # ELK 搭建
 
-## 安装 ElasticSearch 
+## 安装 ElasticSearch
 
 ```bash
 # 下载安装包，官网地址：https://www.elastic.co/cn/downloads/elasticsearch
@@ -32,16 +32,19 @@ cluster.initial_master_nodes: ["node-1"]
 # vm.max_map_count 参数配置
 [root@localhost opt]# vim /etc/sysctl.conf
 ```
+
 ```conf
 # 加上以下配置 max_map_count 文件包含限制一个进程可以拥有的VMA(虚拟内存区域)的数量。
 vm.max_map_count=262144
 ```
+
 ```bash
 # 使配置立即生效
 [root@localhost opt]# sysctl -p
 # limits.conf 参数配置
 [root@localhost opt]# vim /etc/security/limits.conf
 ```
+
 ```conf
 # limits.conf文件限制着用户可以使用的最大文件数，最大线程，最大内存等资源使用量。
 # soft是一个警告值，而hard则是一个真正意义的阀值，超过就会报错
@@ -65,7 +68,7 @@ passwd：所有的身份验证令牌已经成功更新。
 [root@localhost opt]# chown -R elastic:elastic elasticsearch-7.14.1
 # 切换用户 elastic
 [root@localhost opt]# su elastic
-[elastic@localhost opt]$ 
+[elastic@localhost opt]$
 # 启动 ElasticSearch
 [elastic@localhost opt]$ nohup elasticsearch-7.14.1/bin/./elasticsearch &
 [1] 13252
@@ -90,7 +93,7 @@ passwd：所有的身份验证令牌已经成功更新。
   },
   "tagline" : "You Know, for Search"
 }
-[elastic@localhost opt]$ 
+[elastic@localhost opt]$
 ```
 
 ## 安装 Kibana
@@ -99,9 +102,9 @@ passwd：所有的身份验证令牌已经成功更新。
 # 下载安装包，官网地址：https://www.elastic.co/cn/downloads/kibana
 [root@localhost opt]# wget https://artifacts.elastic.co/downloads/kibana/kibana-7.14.1-linux-x86_64.tar.gz
 # 解压
-[root@localhost opt]# tar -zxvf kibana-7.14.1-linux-x86_64.tar.gz 
+[root@localhost opt]# tar -zxvf kibana-7.14.1-linux-x86_64.tar.gz
 # 修改配置文件
-[root@localhost opt]# vim kibana-7.14.1-linux-x86_64/config/kibana.yml 
+[root@localhost opt]# vim kibana-7.14.1-linux-x86_64/config/kibana.yml
 ```
 
 ```yaml
@@ -123,7 +126,7 @@ elasticsearch.hosts: ["http://localhost:9200"]
 [elastic@localhost opt]$ nohup kibana-7.14.1-linux-x86_64/bin/kibana &
 [1] 14610
 [elastic@localhost opt]$ nohup: 忽略输入并把输出追加到"/home/elastic/nohup.out"
-# 浏览器访问: http://x.x.x.x:5601 
+# 浏览器访问: http://x.x.x.x:5601
 # 可以看到 Kibana 的 web 交互界面，其中x.x.x.x为自己服务地址
 ```
 
@@ -137,7 +140,7 @@ elasticsearch.hosts: ["http://localhost:9200"]
 # 添加 logstash-logback.conf 配置文件
 [root@localhost opt]# touch logstash-7.14.1/config/logstash-logback.conf
 # 修改配置
-[root@localhost opt]# vim logstash-7.14.1/config/logstash-logback.conf 
+[root@localhost opt]# vim logstash-7.14.1/config/logstash-logback.conf
 ```
 
 ```yaml
@@ -172,4 +175,3 @@ output {
 [1] 14913
 [root@localhost opt]# nohup: 忽略输入并把输出追加到"nohup.out"
 ```
-

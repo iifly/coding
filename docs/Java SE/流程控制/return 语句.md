@@ -1,15 +1,17 @@
 # return 语句
-return 语句有两个作用：  
+
+return 语句有两个作用：
 
 - 一个是返回方法指定类型的值（这个值总是确定的 `return 值;`）
 - 一个是结束方法的执行（仅仅一个 `return;` 语句）
 
 ## 代码示例
+
 ```java
 public class ReturnStatement {
     /**
      * main 方法执行结果：
-     * 
+     *
      * x 与 y 之和为： 5
      * 5 是奇数
      */
@@ -37,4 +39,5 @@ public class ReturnStatement {
 ```
 
 ## 阅读资料
-*
+
+-
