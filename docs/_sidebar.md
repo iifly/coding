@@ -18,7 +18,7 @@
         * [return 语句](/Java%20SE/流程控制/return%20语句)
         
 * [Java OOP](/Java%20OOP/)
-    * [面向对象概念](/Java%20OOP/面向对象概念)
+    * [面向对象编程](/Java%20OOP/面向对象编程)
     * [构造方法](/Java%20OOP/构造方法)
     * [static 关键字](/Java%20OOP/static%20关键字)
     * [继承](/Java%20OOP/继承)
