@@ -16,11 +16,11 @@ JVM 使得编译器的工作简单化，因为编译器不用为每种机器生�
 
 Java 程序执行流程图：
 
-![Java 程序执行过程](../imgs/Java程序执行过程.jpg)
+![Java 程序执行过程](../../imgs/Java程序执行过程.jpg)
 
 ## JVM 结构体系
 
-![JVM体系结构](../imgs/JVM体系结构.jpg)
+![JVM体系结构](../../imgs/JVM体系结构.jpg)
 
 下面我们来介绍一下 JVM 是怎么工作的：
 
@@ -83,7 +83,7 @@ JDK 是 JRE 的超集，它包含了 JRE,并且多了一些其他工具，如编
 
 ### 关系图
 
-![JDK&JRE&JVM关系图](../imgs/JDK&JRE&JVM.jpg)
+![JDK&JRE&JVM关系图](../../imgs/JDK&JRE&JVM.jpg)
 
 ## 阅读资料
 

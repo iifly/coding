@@ -1,7 +1,10 @@
 # coding
 
-* [Java SE](/Java%20SE/)
-* [Java OOP](/Java%20OOP/)
-* [随笔](/随笔/)
-* [环境搭建&部署](/环境搭建&部署/)
+* [Java](Java/)
+    * [Java基础](Java/Java基础/)
+    * [Java面向对象](Java/Java面向对象/)
+    
+* [随笔](随笔/)
+
+* [环境搭建&部署](环境搭建&部署/)
 
