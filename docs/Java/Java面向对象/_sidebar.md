@@ -3,7 +3,7 @@
     * [构造方法](/Java/Java面向对象/构造方法)
     * [static 关键字](/Java/Java面向对象/static%20关键字)
     * [继承](/Java/Java面向对象/继承)
-    * [继承的类型](/Java/Java面向对象/继承类型)
+    * [继承的类型](/Java/Java面向对象/继承的类型)
     * [聚合](/Java/Java面向对象/聚合)
     * [关联](/Java/Java面向对象/关联)
     * [super 关键字](/Java/Java面向对象/super%20关键字)
