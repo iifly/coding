@@ -2,13 +2,13 @@
 
 ## 类关系图
 
-[新标签页中打开查看](../../imgs/Collection结构体系.png ':ignore')
-![Collection结构体系](../../imgs/Collection结构体系.png)
+[新标签页中打开查看](../../imgs/Java容器体系.png ':ignore')
+![Java容器体系](../../imgs/Java容器体系.png)
 
 ## Idea查看类关系图
 
-[新标签页中打开查看](../../imgs/Collection.png ':ignore')
-![Collection](../../imgs/Collection.png)
+[新标签页中打开查看](../../imgs/Java容器体系-Idea.png ':ignore')
+![Java容器体系-Idea](../../imgs/Java容器体系-Idea.png)
 
 ## 简介
 
