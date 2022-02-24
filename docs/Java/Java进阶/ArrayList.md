@@ -20,16 +20,11 @@ Java 泛型只是编译器提供的语法糖，所以这里的数组是一个 `O
 ## 底层数据结构
 ```java
     /**
-     * The array buffer into which the elements of the ArrayList are stored.
-     * The capacity of the ArrayList is the length of this array buffer. Any
-     * empty ArrayList with elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA
-     * will be expanded to DEFAULT_CAPACITY when the first element is added.
      * 底层数组
      */
     transient Object[] elementData; // non-private to simplify nested class access
 
     /**
-     * The size of the ArrayList (the number of elements it contains).
      * 元素的个数
      * @serial
      */
@@ -44,30 +39,21 @@ Java 泛型只是编译器提供的语法糖，所以这里的数组是一个 `O
 
 ```java
     /**
-     * Default initial capacity. 
      * 默认初始容量 10
      */
     private static final int DEFAULT_CAPACITY = 10;
 
     /**
-     * Shared empty array instance used for empty instances. 
      * 共享空数组实例 
      */
     private static final Object[] EMPTY_ELEMENTDATA = {};
 
     /**
-     * Shared empty array instance used for default sized empty instances. We
-     * distinguish this from EMPTY_ELEMENTDATA to know how much to inflate when
-     * first element is added.
      * 默认初始容量的共享空数组实例，与 EMPTY_ELEMENTDATA 区分，用来了解添加第一个的元素的膨胀过程
      */
     private static final Object[] DEFAULTCAPACITY_EMPTY_ELEMENTDATA = {};
 
     /**
-     * The maximum size of array to allocate.
-     * Some VMs reserve some header words in an array.
-     * Attempts to allocate larger arrays may result in
-     * OutOfMemoryError: Requested array size exceeds VM limit
      * 数组的最大容量
      */
     private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
@@ -75,13 +61,12 @@ Java 泛型只是编译器提供的语法糖，所以这里的数组是一个 `O
 
 ## 构造方法
 
+`ArrayList` 一共有以下三个构造方法  
+
 ```java
     /**
-     * Constructs an empty list with the specified initial capacity.
      * 构造一个具有指定初始容量的空列表。
      * @param  initialCapacity 列表的初始容量 the initial capacity of the list
-     * @throws IllegalArgumentException if the specified initial capacity
-     *         is negative
      */
     public ArrayList(int initialCapacity) {
         if (initialCapacity > 0) {
@@ -105,12 +90,7 @@ Java 泛型只是编译器提供的语法糖，所以这里的数组是一个 `O
     }
 
     /**
-     * Constructs a list containing the elements of the specified
-     * collection, in the order they are returned by the collection's
-     * iterator.
      * 构造一个包含指定集合元素的列表
-     * @param c 指定集合 the collection whose elements are to be placed into this list
-     * @throws NullPointerException if the specified collection is null
      */
     public ArrayList(Collection<? extends E> c) {
         Object[] a = c.toArray();
@@ -139,9 +119,6 @@ Java 泛型只是编译器提供的语法糖，所以这里的数组是一个 `O
 
 ```java
     /**
-     * Increases the capacity of this <tt>ArrayList</tt> instance, if
-     * necessary, to ensure that it can hold at least the number of elements
-     * specified by the minimum capacity argument.
      * 确保容量
      * 确保数组容量最小是 minCapacity | 至少可存储 minCapacity 个元素
      * @param   minCapacity  所需最小容量/最少可存储元素个数  the desired minimum capacity
@@ -157,24 +134,6 @@ Java 泛型只是编译器提供的语法糖，所以这里的数组是一个 `O
             // 确保显式容量
             ensureExplicitCapacity(minCapacity);
         }
-    }
-
-    /**
-     * 计算最小需要容量
-     * - 如果数组是 默认初始容量的共享空数组实例 取 最小需要容量(minCapacity) 和 默认初始容量(DEFAULT_CAPACITY) 10 的较大值
-     * - 否则 取参数 minCapacity 所需最小容量
-     * @param elementData 数组
-     * @param minCapacity 所需最小容量/最少可存储元素个数
-     * @return 所需最小容量
-     */
-    private static int calculateCapacity(Object[] elementData, int minCapacity) {
-        // 如果数组是 默认初始容量的共享空数组实例 
-        if (elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA) {
-            // 取 所需最小容量(minCapacity) 和 默认初始容量(DEFAULT_CAPACITY) 10 的较大值。
-            return Math.max(DEFAULT_CAPACITY, minCapacity);
-        }
-        // 取 所需最小容量(minCapacity)
-        return minCapacity;
     }
 
     /**
@@ -204,10 +163,23 @@ Java 泛型只是编译器提供的语法糖，所以这里的数组是一个 `O
     }
 
     /**
-     * Increases the capacity to ensure that it can hold at least the
-     * number of elements specified by the minimum capacity argument.
+     * 计算最小需要容量
+     * - 如果数组是 默认初始容量的共享空数组实例 取 最小需要容量(minCapacity) 和 默认初始容量(DEFAULT_CAPACITY) 10 的较大值
+     * - 否则 取参数 minCapacity 所需最小容量
+     */
+    private static int calculateCapacity(Object[] elementData, int minCapacity) {
+        // 如果数组是 默认初始容量的共享空数组实例 
+        if (elementData == DEFAULTCAPACITY_EMPTY_ELEMENTDATA) {
+            // 取 所需最小容量(minCapacity) 和 默认初始容量(DEFAULT_CAPACITY) 10 的较大值。
+            return Math.max(DEFAULT_CAPACITY, minCapacity);
+        }
+        // 取 所需最小容量(minCapacity)
+        return minCapacity;
+    }
+
+    /**
      * 扩容 - 增加容量以确保至少可以容纳 minCapacity 元素数量
-     * @param minCapacity 所需最小容量/最少可存储元素个数 the desired minimum capacity
+     * @param minCapacity 所需最小容量/最少可存储元素个数 
      */
     private void grow(int minCapacity) {
         // overflow-conscious code
@@ -234,12 +206,13 @@ Java 泛型只是编译器提供的语法糖，所以这里的数组是一个 `O
 
     /**
      * 巨大的容量
-     * @param minCapacity 所需最小容量/最少可存储元素个数 the desired minimum capacity
+     * @param minCapacity 所需最小容量/最少可存储元素个数 
      */
     private static int hugeCapacity(int minCapacity) {
         // 如果 所需最小容量 范围溢出 则 抛异常
         if (minCapacity < 0) // overflow 
             throw new OutOfMemoryError();
+
         // 如果 所需最小容量 未范围溢出且大于数组最大容量，取整数最大值，否则取数组的最大容量
         return (minCapacity > MAX_ARRAY_SIZE) ?
             Integer.MAX_VALUE :
@@ -247,6 +220,285 @@ Java 泛型只是编译器提供的语法糖，所以这里的数组是一个 `O
     }
 ```
 
+## 添加元素
+
+`add()` 方法向列表中添加一个元素，根据参数不同添加的位置也不同  
+- `add(E e)`列表末尾添加 -  确保容量后把元素附加在列表末尾
+- `add(int index, E element)` 索引位置插入 - 需对索引位置越界检查及确保容量，再对元素进行移动，最后完成插入操作，也就意味着该方法有着线性的时间复杂度
+
+```java
+    /**
+     * 添加元素 e 到列表末尾
+     */
+    public boolean add(E e) {
+        // 确保数组容量足够，过程中 modCount +1
+        ensureCapacityInternal(size + 1);  // Increments modCount!!
+
+        // 列表末尾的下一个元素赋值为 添加的元素 e，并且 size +1
+        elementData[size++] = e;
+        return true;
+    }
+
+    /**
+     * 在索引位置插入元素 当前位置及之后元素依次后移
+     */
+    public void add(int index, E element) {
+        // 索引位置 - 数组越界检查
+        rangeCheckForAdd(index);
+
+        // 确保数组容量足够，过程中 modCount +1
+        ensureCapacityInternal(size + 1);  // Increments modCount!!
+
+        // 索引位置及之后的元素向后移动 - 数组复制的方式 System.arraycopy(源数组,源数组起始位置,目标数组,目标数组起始位置,复制的元素个数)
+        System.arraycopy(elementData, index, elementData, index + 1, size - index);
+
+        // 元素 element 覆盖索引位置上的值
+        elementData[index] = element;
+
+        // size +1
+        size++;
+    }
+```
+
+`addAll()` 方法向列表中添加多个元素，和 `add()` 方法一样，根据参数不同添加的位置也不同  
+- `addAll(Collection<? extends E> c)` 末尾添加 - 把集合元素附加到列表末尾
+- `addAll(int index, Collection<? extends E> c)` 索引位置开始插入 - 需对索引位置越界检查及确保容量，再对元素进行移动，最后完成插入操作，其时间复杂度不仅跟插入元素的多少有关，也跟插入的位置相关
+
+```java
+    /**
+     * 将指定集合中的所有元素附加到此列表的末尾
+     */
+    public boolean addAll(Collection<? extends E> c) {
+        // 集合转换为数组
+        Object[] a = c.toArray();
+
+        // 添加集合元素个数
+        int numNew = a.length;
+
+        // 确保数组容量足够
+        ensureCapacityInternal(size + numNew);  // Increments modCount
+
+        // 把集合转换的数组复制到 底层数组末尾
+        System.arraycopy(a, 0, elementData, size, numNew);
+
+        // size 加上集合元素个数
+        size += numNew;
+        return numNew != 0;
+    }
+
+    /**
+     * 将指定集合中的所有元素插入到索引位置，索引位置及之后的元素顺序后移
+     */
+    public boolean addAll(int index, Collection<? extends E> c) {
+        // 索引位置 - 数组越界检查
+        rangeCheckForAdd(index);
+
+        // 集合转换为数组
+        Object[] a = c.toArray();
+
+        // 添加集合元素个数
+        int numNew = a.length;
+
+        // 确保数组容量足够
+        ensureCapacityInternal(size + numNew);  // Increments modCount
+        
+        // 底层数组需要后移的元素个数
+        int numMoved = size - index;
+
+        // 如果元素需要后移 -> 移动位置
+        if (numMoved > 0)
+            System.arraycopy(elementData, index, elementData, index + numNew, numMoved);
+    
+        // 从索引位置开始插入 集合元素
+        System.arraycopy(a, 0, elementData, index, numNew);
+
+        // size 加上集合元素个数
+        size += numNew;
+        return numNew != 0;
+    }
+```
+
+## 移除元素
+
+`remove()` 方法移除元素也有两个版本  
+- `remove(int index)` 移除索引位置的元素 - 
+- `remove(Object o)` 移除第一个匹配的元素 - 
+
+```java
+    /**
+     * 移除索引位置的元素
+     */
+    public E remove(int index) {
+        // 对索引位置越界检查
+        rangeCheck(index);
+        
+        // 操作次数 +1
+        modCount++;
+
+        // 获取数组索引位置元素 其实就是: E oldValue = (E) elementData[index]
+        E oldValue = elementData(index);
+
+        // 移除元素后需向前移动的元素个数
+        int numMoved = size - index - 1;
+        
+        // 如果有需要向前移动的元素
+        if (numMoved > 0)
+            // 向前移动元素
+            System.arraycopy(elementData, index+1, elementData, index, numMoved);
+        // /清除该索引位置的引用，让GC起作用
+        elementData[--size] = null; // clear to let GC do its work
+        
+        // 返回索引位置上的值
+        return oldValue;
+    }
+
+    /**
+     * 移除第一个匹配的元素 
+     * 思考：如果使用 Objects.equals(Object a, Object b)判断元素是否相等是否就不需要区分 null 了
+     */
+    public boolean remove(Object o) {
+        // 如果需要移除的元素是 null
+        if (o == null) {
+            for (int index = 0; index < size; index++)
+                // 遍历列表获取第一个 null 元素
+                if (elementData[index] == null) {
+                    // 移除该元素索引位置的值
+                    fastRemove(index);
+                    return true;
+                }
+        } 
+        // 需要移除的元素不是 null 
+        else {
+            for (int index = 0; index < size; index++)
+                // 遍历列表获取第一个等于 目标元素 的元素
+                if (o.equals(elementData[index])) {
+                    // 移除该元素索引位置的值
+                    fastRemove(index);
+                    return true;
+                }
+        }
+        return false;
+    }
+```
+
+## 设置(替换)元素
+
+`set()` 方法 - 替换索引位置的值 
+- `set(int index, E element)` `ArrayList` 底层是一个数组, `set()` 方法也就变得非常简单，直接对数组的索引位置赋值即可
+
+```java
+    /**
+     * 替换索引位置的值
+     */
+    public E set(int index, E element) {
+        // 索引位置进行越界检查
+        rangeCheck(index);
+        
+        // 获取索引位置元素,其实就是: E oldValue = (E) elementData[index]
+        E oldValue = elementData(index);
+        
+        // 覆盖原索引位置的值
+        elementData[index] = element;
+        
+        // 返回旧值
+        return oldValue;
+    }
+```
+
+## 获取元素
+
+`get()` 方法 - 获取索引位置的值 
+- `get(int index)` 方法同样很简单，唯一要注意的是由于底层数组是Object[]，得到元素后需要进行类型转换
+
+```java
+    /**
+     * 获取索引位置的值
+     */
+    public E get(int index) {
+        // 索引位置进行越界检查
+        rangeCheck(index);
+        // 获取索引位置元素,其实就是: E oldValue = (E) elementData[index]
+        return elementData(index);
+    }
+```
+
+## 其他操作
+
+- `trimToSize()` 将底层数组的容量调整为当前列表保存的实际元素的大小
+
+```java
+    /**
+     * 将底层数组的容量调整为当前列表保存的实际元素的大小
+     */
+    public void trimToSize() {
+        modCount++;
+        // 如果数组容量大于元素个数(没装满)
+        if (size < elementData.length) {
+            elementData = (size == 0)
+
+              // 如果元素个数为 0， 赋值共享共数组实例
+              ? EMPTY_ELEMENTDATA
+
+              // 拷贝列表元素到一个数组容量与元素个数相等的数组
+              : Arrays.copyOf(elementData, size);
+        }
+    }
+```
+
+- `indexOf()` 获取元素第一次出现的索引，如未找到则返回 -1
+
+```java
+    /**
+     * 获取元素第一次出现的索引,如未找到则返回 -1
+     * 如果使用 Objects.equals(Object a, Object b)判断元素是否相等是否就不需要区分 null 了
+     */
+    public int indexOf(Object o) {
+        // 查找的元素为 null
+        if (o == null) {
+            for (int i = 0; i < size; i++)
+                // 返回第一个 等于 null 的元素索引
+                if (elementData[i]==null)
+                    return i;
+        } 
+        // 查找的元素不为 null
+        else {
+            for (int i = 0; i < size; i++)
+                // 返回第一个与之相等的元素索引
+                if (o.equals(elementData[i]))
+                    return i;
+        }
+    
+        // 如未找到则返回 -1
+        return -1;
+    }
+```
+
+- `lastIndexOf()` 获取元素最后一次出现的索引，如未找到则返回 -1
+
+```java
+    /**
+     * 获取元素最后一次出现的索引(数组反向查找)，如未找到则返回 -1
+     */
+    public int lastIndexOf(Object o) {
+        // 查找的元素为 null
+        if (o == null) {
+            for (int i = size-1; i >= 0; i--)
+                // 数组反向查找，返回第一个 等于 null 的元素索引
+                if (elementData[i]==null)
+                    return i;
+        } 
+        // 查找的元素不为 null
+        else {
+            for (int i = size-1; i >= 0; i--)
+                // 数组反向查找，返回第一个与之相等的元素索引
+                if (o.equals(elementData[i]))
+                    return i;
+        }
+
+        // 如未找到则返回 -1
+        return -1;
+    }
+```
 
 ## 阅读资料
 
