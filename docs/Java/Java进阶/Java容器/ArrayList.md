@@ -31,7 +31,7 @@ Java 泛型只是编译器提供的语法糖，所以这里的数组是一个 `O
     private int size;
 ```  
 
-![ArrayList底层数据结构](../../imgs/ArrayList底层数据结构.png)  
+![ArrayList底层数据结构](../../../imgs/ArrayList底层数据结构.png)  
 
 > `size` 是存储元素的实际个数， `capacity` 是底层数组的大小。
 

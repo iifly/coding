@@ -1,4 +1,4 @@
 # Java 进阶
 
-* [Java容器](Java容器)
-    * [ArrayList](ArrayList)
+* [Java容器](/Java/Java进阶/Java容器/)
+    * [ArrayList](/Java/Java进阶/Java容器/ArrayList)
