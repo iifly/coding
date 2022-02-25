@@ -1,6 +1,5 @@
 # Java 容器 <!-- {docsify-ignore-all} -->
 
-* [ArrayList](ArrayList)
     
 ## 类关系图
 
@@ -28,7 +27,11 @@
 
 ### Vector
 
- 和 `ArrayList` 类似，但它是线程安全的
+和 `ArrayList` 类似，但它是线程安全的
+ 
+### Stack
+
+栈 - 先进后出的数据结构，已不推荐使用！
 
 ### LinkedList
 
@@ -53,6 +56,10 @@
 ### LinkedList
 
 可以用它来实现双向队列。
+
+### ArrayDeque
+
+数组双端队列，队列使用的首选，次选是 `LinkedList`,也可以当做栈来使用
  
 ### PriorityQueue
 
