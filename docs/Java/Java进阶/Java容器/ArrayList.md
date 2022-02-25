@@ -115,7 +115,9 @@ Java 泛型只是编译器提供的语法糖，所以这里的数组是一个 `O
 
 > Tip: 数组进行扩容时，会将老数组中的元素重新拷贝一份到新的数组中，每次数组容量的增长大约是其原容量的 `1.5` 倍。这种操作的代价是很高的，因此在实际使用时，我们应该尽量避免数组容量的扩张。
 > - 当我们可预知要保存的元素的多少时，在构造 `ArrayList` 实例时就指定其容量，以避免数组扩容的发生。
-> - 或者根据实际需求，通过调用 `ensureCapacity` 方法来手动增加 `ArrayList` 实例的容量。
+> - 或者根据实际需求，通过调用 `ensureCapacity` 方法来手动增加 `ArrayList` 实例的容量。  
+
+![ArrayList自动扩容过程](../../../imgs/ArrayList自动扩容过程.png)
 
 ```java
     /**
@@ -222,9 +224,11 @@ Java 泛型只是编译器提供的语法糖，所以这里的数组是一个 `O
 
 ## 添加元素
 
-`add()` 方法向列表中添加一个元素，根据参数不同添加的位置也不同  
+添加单个元素    
 - `add(E e)`列表末尾添加 -  确保容量后把元素附加在列表末尾
 - `add(int index, E element)` 索引位置插入 - 需对索引位置越界检查及确保容量，再对元素进行移动，最后完成插入操作，也就意味着该方法有着线性的时间复杂度
+
+![](../../../imgs/ArrayList添加元素.png)  
 
 ```java
     /**
@@ -260,7 +264,7 @@ Java 泛型只是编译器提供的语法糖，所以这里的数组是一个 `O
     }
 ```
 
-`addAll()` 方法向列表中添加多个元素，和 `add()` 方法一样，根据参数不同添加的位置也不同  
+添加多个元素   
 - `addAll(Collection<? extends E> c)` 末尾添加 - 把集合元素附加到列表末尾
 - `addAll(int index, Collection<? extends E> c)` 索引位置开始插入 - 需对索引位置越界检查及确保容量，再对元素进行移动，最后完成插入操作，其时间复杂度不仅跟插入元素的多少有关，也跟插入的位置相关
 
@@ -323,6 +327,8 @@ Java 泛型只是编译器提供的语法糖，所以这里的数组是一个 `O
 `remove()` 方法移除元素也有两个版本  
 - `remove(int index)` 移除索引位置的元素 - 
 - `remove(Object o)` 移除第一个匹配的元素 - 
+
+![](../../../imgs/ArrayList移除元素.png)
 
 ```java
     /**
@@ -422,86 +428,45 @@ Java 泛型只是编译器提供的语法糖，所以这里的数组是一个 `O
     }
 ```
 
-## 其他操作
+## ArrayList 常用方法一览
 
-- `trimToSize()` 将底层数组的容量调整为当前列表保存的实际元素的大小
+| Modifier and Type | Method and Description                                                                                                                   |
+| :---------------- | :--------------------------------------------------------------------------------------------------------------------------------------- |
+| `boolean`         | `add(E e)`将指定的元素追加到此列表的末尾。                                                                                               |
+| `void`            | `add(int index, E element)`在此列表中的指定位置插入指定的元素。                                                                          |
+| `boolean`         | `addAll(Collection<? extends E> c)`按指定集合的 Iterator 返回的顺序将指定集合中的所有元素追加到此列表的末尾。                            |
+| `boolean`         | `addAll(int index, Collection<? extends E> c)`将指定集合中的所有元素插入到此列表中，从指定的位置开始。                                   |
+| `void`            | `clear()`从列表中删除所有元素。                                                                                                          |
+| `Object`          | `clone()`返回此 `ArrayList`实例的浅拷贝。                                                                                                |
+| `boolean`         | `contains(Object o)`如果此列表包含指定的元素，则返回 `true` 。                                                                           |
+| `void`            | `ensureCapacity(int minCapacity)`如果需要，增加此 `ArrayList`实例的容量，以确保它可以至少保存最小容量参数指定的元素数。                  |
+| `void`            | `forEach(Consumer<? super E> action)`对 `Iterable`的每个元素执行给定的操作，直到所有元素都被处理或动作引发异常。                         |
+| `E`               | `get(int index)`返回此列表中指定位置的元素。                                                                                             |
+| `int`             | `indexOf(Object o)`返回此列表中指定元素的第一次出现的索引，如果此列表不包含元素，则返回-1。                                              |
+| `boolean`         | `isEmpty()`如果此列表不包含元素，则返回 `true` 。                                                                                        |
+| `Iterator<E>`     | `iterator()`以正确的顺序返回该列表中的元素的迭代器。                                                                                     |
+| `int`             | `lastIndexOf(Object o)`返回此列表中指定元素的最后一次出现的索引，如果此列表不包含元素，则返回-1。                                        |
+| `ListIterator<E>` | `listIterator()`返回列表中的列表迭代器（按适当的顺序）。                                                                                 |
+| `ListIterator<E>` | `listIterator(int index)`从列表中的指定位置开始，返回列表中的元素（按正确顺序）的列表迭代器。                                            |
+| `E`               | `remove(int index)`删除该列表中指定位置的元素。                                                                                          |
+| `boolean`         | `remove(Object o)`从列表中删除指定元素的第一个出现（如果存在）。                                                                         |
+| `boolean`         | `removeAll(Collection<?> c)`从此列表中删除指定集合中包含的所有元素。                                                                     |
+| `boolean`         | `removeIf(Predicate<? super E> filter)`删除满足给定谓词的此集合的所有元素。                                                              |
+| `protected void`  | `removeRange(int fromIndex, int toIndex)`从这个列表中删除所有索引在 `fromIndex` （含）和 `toIndex`之间的元素。                           |
+| `void`            | `replaceAll(UnaryOperator<E> operator)`将该列表的每个元素替换为将该运算符应用于该元素的结果。                                            |
+| `boolean`         | `retainAll(Collection<?> c)`仅保留此列表中包含在指定集合中的元素。                                                                       |
+| `E`               | `set(int index, E element)`用指定的元素替换此列表中指定位置的元素。                                                                      |
+| `int`             | `size()`返回此列表中的元素数。                                                                                                           |
+| `void`            | `sort(Comparator<? super E> c)`使用提供的 `Comparator`对此列表进行排序以比较元素。                                                       |
+| `List<E>`         | `subList(int fromIndex, int toIndex)`返回此列表中指定的 `fromIndex` （包括）和 `toIndex`之间的独占视图。                                 |
+| `Object[]`        | `toArray()`以正确的顺序（从第一个到最后一个元素）返回一个包含此列表中所有元素的数组。                                                    |
+| `<T> T[]`         | `toArray(T[] a)`以正确的顺序返回一个包含此列表中所有元素的数组（从第一个到最后一个元素）; 返回的数组的运行时类型是指定数组的运行时类型。 |
+| `void`            | `trimToSize()`修改这个 `ArrayList`实例的容量是列表的当前大小。                                                                           |
 
-```java
-    /**
-     * 将底层数组的容量调整为当前列表保存的实际元素的大小
-     */
-    public void trimToSize() {
-        modCount++;
-        // 如果数组容量大于元素个数(没装满)
-        if (size < elementData.length) {
-            elementData = (size == 0)
-
-              // 如果元素个数为 0， 赋值共享共数组实例
-              ? EMPTY_ELEMENTDATA
-
-              // 拷贝列表元素到一个数组容量与元素个数相等的数组
-              : Arrays.copyOf(elementData, size);
-        }
-    }
-```
-
-- `indexOf()` 获取元素第一次出现的索引，如未找到则返回 -1
-
-```java
-    /**
-     * 获取元素第一次出现的索引,如未找到则返回 -1
-     * 如果使用 Objects.equals(Object a, Object b)判断元素是否相等是否就不需要区分 null 了
-     */
-    public int indexOf(Object o) {
-        // 查找的元素为 null
-        if (o == null) {
-            for (int i = 0; i < size; i++)
-                // 返回第一个 等于 null 的元素索引
-                if (elementData[i]==null)
-                    return i;
-        } 
-        // 查找的元素不为 null
-        else {
-            for (int i = 0; i < size; i++)
-                // 返回第一个与之相等的元素索引
-                if (o.equals(elementData[i]))
-                    return i;
-        }
-    
-        // 如未找到则返回 -1
-        return -1;
-    }
-```
-
-- `lastIndexOf()` 获取元素最后一次出现的索引，如未找到则返回 -1
-
-```java
-    /**
-     * 获取元素最后一次出现的索引(数组反向查找)，如未找到则返回 -1
-     */
-    public int lastIndexOf(Object o) {
-        // 查找的元素为 null
-        if (o == null) {
-            for (int i = size-1; i >= 0; i--)
-                // 数组反向查找，返回第一个 等于 null 的元素索引
-                if (elementData[i]==null)
-                    return i;
-        } 
-        // 查找的元素不为 null
-        else {
-            for (int i = size-1; i >= 0; i--)
-                // 数组反向查找，返回第一个与之相等的元素索引
-                if (o.equals(elementData[i]))
-                    return i;
-        }
-
-        // 如未找到则返回 -1
-        return -1;
-    }
-```
 
 ## 阅读资料
 
 - [全栈知识体系-ArrayList源码解析](https://www.pdai.tech/md/java/collection/java-collection-ArrayList.html)
 - [CarpenterLee-ArrayList源码解析](https://www.cnblogs.com/CarpenterLee/p/5419880.html)
 - [zhangshixi-ArrayList源码解析](https://www.iteye.com/blog/zhangshixi-674856)
+- [Java 8 在线文档](https://www.matools.com/api/java8)
