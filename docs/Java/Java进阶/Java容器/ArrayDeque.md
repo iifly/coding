@@ -26,12 +26,14 @@ Java 里有一个叫做 `Stack` 的类，却没有叫做 `Queue` 的类(它是�
 它同时也支持两组格式，一组是抛出异常的实现；另外一组是返回值的实现(没有则返回 null)。  
 共 12 个方法如下:
 
-|         | First Element - Head |               | Last Element - Tail |               |
-| ------- | -------------------- | ------------- | ------------------- | ------------- |
-|         | Throws exception     | Special value | Throws exception    | Special value |
-| Insert  | addFirst(e)          | offerFirst(e) | addLast(e)          | offerLast(e)  |
-| Remove  | removeFirst()        | pollFirst()   | removeLast()        | pollLast()    |
-| Examine | getFirst()           | peekFirst()   | getLast()           | peekLast()    |
+|         | First Element - Head |                 | Last Element - Tail |                |
+| ------- | -------------------- | --------------- | ------------------- | -------------- |
+|         | Throws exception     | Special value   | Throws exception    | Special value  |
+| Insert  | `addFirst(e)`        | `offerFirst(e)` | `addLast(e)`        | `offerLast(e)` |
+| Remove  | `removeFirst()`      | `pollFirst()`   | `removeLast()`      | `pollLast()`   |
+| Examine | `getFirst()`         | `peekFirst()`   | `getLast()`         | `peekLast()`   |
+
+### 当做 Queue 使用
 
 当把 `Deque` 当做 FIFO 的 `Queue` 来使用时，元素是从 `Deque` 的尾部添加，从头部进行删除的
 下表列出了 `Deque` 与 `Queue` 对应的方法:
@@ -45,17 +47,16 @@ Java 里有一个叫做 `Stack` 的类，却没有叫做 `Queue` 的类(它是�
 | `element()`  | `getFirst()`            | 获取但不删除队首元素，失败则抛出异常   |
 | `peek()`     | `peekFirst()`           | 获取但不删除队首元素，失败则返回`null` |
 
+### 当做 Stack 使用
+
 当把 `Deque` 当做 LIFO 的 `Stack` 来使用时，元素是从 `Deque` 的头部添加和删除的  
 下表列出了 `Deque` 与 `Stack` 对应的接口:
 
 | Stack Method | Equivalent Deque Method | 说明                                   |
 | ------------ | ----------------------- | -------------------------------------- |
 | `push(e)`    | `addFirst(e)`           | 向栈顶插入元素，失败则抛出异常         |
-| 无           | `offerFirst(e)`         | 向栈顶插入元素，失败则返回`false`      |
 | `pop()`      | `removeFirst()`         | 获取并删除栈顶元素，失败则抛出异常     |
-| 无           | `pollFirst()`           | 获取并删除栈顶元素，失败则返回`null`   |
 | `peek()`     | `peekFirst()`           | 获取但不删除栈顶元素，失败则抛出异常   |
-| 无           | `peekFirst()`           | 获取但不删除栈顶元素，失败则返回`null` |
 
 > - `ArrayDeque` 和 `LinkedList` 是 `Deque` 的两个通用实现，但官方更推荐使用 `ArrayDeque` 用作栈和队列。  
 > - 从名字可以看出 `ArrayDeque` 底层通过数组实现，为了满足可以同时在数组两端插入或删除元素的需求，该数组还必须是循环的，即`循环数组(circular array)`，也就是说数组的任何一点都可能被看作起点或者终点。
@@ -63,7 +64,7 @@ Java 里有一个叫做 `Stack` 的类，却没有叫做 `Queue` 的类(它是�
 
 ## 底层数据结构
 
-![](../../../imgs/ArrayDeque底层数据结构.png)  
+![ArrayDeque底层数据结构](../../../imgs/ArrayDeque底层数据结构.png)  
 
 > Tip： `head` 指向首端第一个有效元素，`tail` 指向尾端第一个可以插入元素的空位。因为是循环数组，所以 `head` 不一定总等于 `0` ，`tail` 也不一定总是比 `head` 大。
 
@@ -121,27 +122,198 @@ Java 里有一个叫做 `Stack` 的类，却没有叫做 `Queue` 的类(它是�
 
 ## 添加元素
 
+首部操作  
+
 - `addFirst(E e)`  - 队列首部添加元素，其他队列首部添加元素的方法都是直接或间接包装此方法实现
 - `offerFirst(E e)` - 包装 `addFirst(E e)` 方法实现
-- `push(E e)` - 包装 `addFirst(E e)` 方法实现
+- `push(E e)` - `Stack` 的方法，包装 `addFirst(E e)` 方法实现
+
+尾部操作  
 
 - `addLast(E e)` - 队列尾部添加元素，其他队列尾部添加元素的方法都是直接或间接包装此方法实现
 - `offerLast(E e)` - 包装 `addLast(E e)` 方法实现
-- `offer(E e)` - 包装 `offerLast(E e)` 方法实现
-- `add(E e)` - 包装 `addLast(E e)` 方法实现
+- `offer(E e)` - `Queue` 的方法，包装 `offerLast(E e)` 方法实现
+- `add(E e)` - `Queue` 的方法，包装 `addLast(E e)` 方法实现
+
+![ArrayDeque首部添加元素](../../../imgs/ArrayDeque首部添加元素.png)  
+![ArrayDeque尾部添加元素](../../../imgs/ArrayDeque尾部添加元素.png)  
+
+```java
+    /**
+     * 队列首部添加元素，不能添加 null
+     */
+    public void addFirst(E e) {
+        // 添加元素 null 抛异常，其他包装此方法的都会抛 
+        if (e == null)
+            throw new NullPointerException();
+        /* 
+        相当于取余，((newIndex % length) + length) % length
+        当 length 为 2 的指数倍是等于 newIndex & (length - 1)
+        */
+        // 计算添加元素在队列的索引位置然后赋值，并更新 head
+        elements[head = (head - 1) & (elements.length - 1)] = e;
+        // 如果队列满了
+        if (head == tail)
+            doubleCapacity();//扩容
+    }
+
+    /**
+     * 队列尾部添加元素，不能添加 null
+     */
+    public void addLast(E e) {
+        // 添加元素 null 抛异常，其他包装此方法的都会抛 
+        if (e == null)
+            throw new NullPointerException();
+        // 因为 tail 总是指向下一个可插入的空位，把元素赋值到 tail 索引位置
+        elements[tail] = e;
+        // tail + 1  -> 如果 tail+1 之后队列满了
+        if ( (tail = (tail + 1) & (elements.length - 1)) == head)
+            doubleCapacity(); // 扩容
+    }
+```
+> Tip: 
+> - `head = (head - 1) & (elements.length - 1)` 这段代码相当于取余，同时解决了 `head` 为负值的情况。
+> 因为 `elements.length` 必须是2的指数倍，`elements - 1` 就是二进制低位全1，跟 `head - 1` 相与之后就起到了取模的作用，如果 `head - 1`为负数(其实只可能是-1)，则相当于对其取相对于 `elements.length` 的补码。
+> - 因为 `tail` 总是指向下一个可插入的空位，也就意味着 `elements` 数组至少有一个空位，所以插入元素的时候不用考虑空间问题
+## 扩容
+
+![ArrayDeque扩容](../../../imgs/ArrayDeque扩容.png)  
+
+```java
+    /**
+     * 双端队列的容量翻倍。仅在充满时才调用，即当头部和尾部缠绕成相等时。
+     */
+    private void doubleCapacity() {
+        // 断言 
+        assert head == tail;
+        // head(== tail) 索引之前的元素个数 p
+        int p = head;
+        int n = elements.length;
+        //head 索引开始到数组末尾的元素个数 n
+        int r = n - p; // number of elements to the right of p
+        // 容量翻倍，相当于乘 2
+        int newCapacity = n << 1;
+        // 容量太大溢出，抛异常
+        if (newCapacity < 0)
+            throw new IllegalStateException("Sorry, deque too big");
+        // 创建新数组
+        Object[] a = new Object[newCapacity];
+        // 把 head 索引开始到数组末尾的元素赋值到新数组
+        System.arraycopy(elements, p, a, 0, r);
+        // 接着继续把 head(== tail) 索引之前的元素赋值到数组，跟着之前元素之后，相当于重新整理了一下队列(head 在索引 0 处)
+        System.arraycopy(elements, 0, a, r, p);
+        // 更新底层数组引用
+        elements = a;
+        // 更新 head 索引
+        head = 0;
+        // 更新 tail 索引
+        tail = n;
+    }
+```
 
 ## 移除元素
 
-- `pollFirst()` - 移除队列首部元素，其他移除队列首部元素的方法都是直接或间接包装此方法实现
-- `poll()` - 包装 `pollFirst()` 方法实现
-- `removeFirst()` - 包装 `pollFirst()` 方法实现
-- `remove()` - 包装 `removeFirst()` 方法实现
-- `pop()` - 包装 `removeFirst()` 方法实现
+首部操作  
 
-- `pollLast()` - 移除队列尾部元素，其他移除队列尾部元素的方法都是直接或间接包装此方法实现
-- `removeLast()` - 包装 `pollLast()` 方法实现
+- `pollFirst()` - 移除队列首部元素，其他移除队列首部元素的方法都是直接或间接包装此方法实现，队列为空返回 `null`
+- `poll()` - `Queue` 的方法，包装 `pollFirst()` 方法实现
+
+- `removeFirst()` - 包装 `pollFirst()` 方法实现，队列为空抛异常
+- `remove()` - `Queue` 的方法，包装 `removeFirst()` 方法实现
+- `pop()` - `Stack` 的方法，包装 `removeFirst()` 方法实现
+
+尾部操作  
+
+- `pollLast()` - 移除队列尾部元素，其他移除队列尾部元素的方法都是直接或间接包装此方法实现，队列为空返回 `null`
+- `removeLast()` - 包装 `pollLast()` 方法实现，队列为空抛异常
+
+```java
+    public E pollFirst() {
+        int h = head;
+        @SuppressWarnings("unchecked")
+        E result = (E) elements[h];
+        // 如果队列为空
+        if (result == null)
+            return null;//返回 null
+        // 索引位置清空，设为 null
+        elements[h] = null;     // Must null out slot
+        // head +1 求余解决越界问题
+        head = (h + 1) & (elements.length - 1);
+        // 返回移除元素的值
+        return result;
+    }
+
+    public E pollLast() {
+        // 计算 tail 索引的前一个元素索引，求余方式解决越界问题（因为 `tail` 总是指向下一个可插入的空位，tail 前一个位置才是队尾元素）
+        int t = (tail - 1) & (elements.length - 1);
+        @SuppressWarnings("unchecked")
+        E result = (E) elements[t];
+        //  如果队列为空
+        if (result == null)
+            return null;//返回 null
+        // // 索引位置清空，设为 null
+        elements[t] = null;
+        // 更新 tail 索引
+        tail = t;
+        // 返回移除元素的值
+        return result;
+    }
+
+```
 
 ## 读取元素(不移除)
+
+首部操作  
+
+- `getFirst()` 读取列表第一个元素，队列为空抛异常
+- `element()` - `Queue` 的方法，包装 `getFirst()` 方法实现
+
+- `peekFirst()` - 读取列表第一个元素，队列为空返回 `null`
+- `peek()` - `Queue` 的方法，包装 `peekFirst()` 方法实现
+
+尾部操作  
+
+- `getLast()` 读取列表第一个元素，队列为空抛异常
+- `peekLast()` 读取列表第一个元素，队列为空返回 `null`
+
+```java
+    /**
+     * @throws NoSuchElementException {@inheritDoc}
+     */
+    public E getFirst() {
+        @SuppressWarnings("unchecked")
+        E result = (E) elements[head];
+        // 队列为空抛异常
+        if (result == null)
+            throw new NoSuchElementException();
+        return result;
+    }
+
+    /**
+     * @throws NoSuchElementException {@inheritDoc}
+     */
+    public E getLast() {
+        @SuppressWarnings("unchecked")
+        E result = (E) elements[(tail - 1) & (elements.length - 1)];
+        // 队列为空抛异常
+        if (result == null)
+            throw new NoSuchElementException();
+        return result;
+    }
+
+    @SuppressWarnings("unchecked")
+    public E peekFirst() {
+        // 队列为空返回 null, elements[head] is null if deque empty
+        return (E) elements[head];
+    }
+
+    @SuppressWarnings("unchecked")
+    public E peekLast() {
+        // 队列为空返回 null, elements[head] is null if deque empty
+        return (E) elements[(tail - 1) & (elements.length - 1)];
+    }
+
+```
 
 ## ArrayDeque 常用方法一览
 
