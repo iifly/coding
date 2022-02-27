@@ -147,7 +147,7 @@ Java 里有一个叫做 `Stack` 的类，却没有叫做 `Queue` 的类(它是�
         if (e == null)
             throw new NullPointerException();
         /* 
-        相当于取余，((newIndex % length) + length) % length
+        相当于取余，((newIndex % length) + length) % length，求两次余是解决负数的情况，先求出最大的负余数加上 length 得到正数求正余数
         当 length 为 2 的指数倍是等于 newIndex & (length - 1)
         */
         // 计算添加元素在队列的索引位置然后赋值，并更新 head
